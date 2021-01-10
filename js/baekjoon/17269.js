@@ -50,8 +50,6 @@ function solution(N, M, A, B) {
   }
   // 궁합도 계산하기
   while (scoreArr.length > 2) {
-    console.log(scoreArr);
-
     let size = scoreArr.length - 1;
     let temp = [];
     for (let i = 0; i < size; i++) {
@@ -59,11 +57,24 @@ function solution(N, M, A, B) {
     }
     scoreArr = temp.slice();
   }
-  console.log(parseInt(scoreArr.join("")));
+  console.log(parseInt(scoreArr.join("")) + "%");
   return parseInt(scoreArr.join(""));
 }
-const N = 8;
-const M = 14;
-const A = "LEESIYUN".split("");
-const B = "MIYAWAKISAKURA".split("");
+
+// 입력
+const fs = require("fs");
+const stdin = (process.platform === "linux"
+  ? fs.readFileSync("/dev/stdin").toString()
+  : `8 14
+LEESIYUN MIYAWAKISAKURA
+`
+).split("\n");
+
+const input = (() => {
+  let line = 0;
+  return () => stdin[line++];
+})();
+
+const [N, M] = input().split(" ").map(Number);
+const [A, B] = input().split(" ");
 solution(N, M, A, B);
