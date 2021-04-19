@@ -29,27 +29,31 @@ solution(num);
 
 // 알고리즘 구현
 function solution(num) {
-  let permutation = [];
+  let stack = [];
   let prevStack = 0;
   let order = 1;
   while (num.length !== 0) {
     if (num[0] >= prevStack) {
       if (order <= num[0]) {
-        console.log("+");
+        stack.push("+");
         if (order === num[0]) {
-          console.log("-");
+          stack.push("-");
           prevStack = num[0];
-          permutation.push(num.shift());
+          num.shift();
         }
       }
       order++;
     } else {
-      if (!permutation.includes(num[0] + 1)) {
-        console.log("NO");
-        return false;
+      for (let ele of num) {
+        if (num[0] < ele && ele < prevStack) {
+          console.log("NO");
+          return false;
+        }
       }
-      console.log("-");
-      permutation.push(num.shift());
+      stack.push("-");
+      num.shift();
     }
   }
+  stack.forEach((ele) => console.log(ele));
+  return stack;
 }
